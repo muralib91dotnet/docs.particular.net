@@ -14,6 +14,8 @@ Messages can fail to be imported into the ServiceControl database due to the fol
  * Messages are well-formed, but there was an intermittent database problem lasting long enough that the built-in retries did not resolve the problem.
  * [Forwarding](/servicecontrol/errorlog-auditlog-behavior.md) is enabled, and the destination queue does not exist, or ServiceControl cannot send messages to it. For example, when the quote message or size limit has been reached.
 
+NOTE: Messages that have corrupt (i.e. unreadable, not deserializable) header data will fail to be process at all and be moved to the 'error' queue (by default `particular.servicecontrol.error` or `particular.servicecontrol.audit.error`
+
 Messages that fail to be imported are stored in the ServiceControl database in the `FailedAuditImports` and `FailedErrorImports` collections.
 
 In addition, a log with the failure reason is written for the message in the [`%ServiceControl/LogPath%`](/servicecontrol/creating-config-file.md#host-settings-servicecontrollogpath)`\FailedImports\{Audit|Error}\%failureid%.txt`. These messages will not be visible in ServiceInsight.
