@@ -12,9 +12,9 @@ Messages can fail to be imported into the ServiceControl database due to the fol
  * Messages themselves are malformed (e.g., missing headers).
    * This happens e.g., when an outdated version of NServiceBus that contained a bug was used to process the messages.
  * Messages are well-formed, but there was an intermittent database problem lasting long enough that the built-in retries did not resolve the problem.
- * [Forwarding](/servicecontrol/errorlog-auditlog-behavior.md) is enabled, and the destination queue does not exist, or ServiceControl cannot send messages to it. For example, when the quote message or size limit has been reached.
+ * [Forwarding](/servicecontrol/errorlog-auditlog-behavior.md) is enabled, and the destination queue does not exist, or ServiceControl cannot send messages to it. For example, when the message or size limit has been reached.
 
-NOTE: Messages that have corrupt (i.e. unreadable, not deserializable) header data will fail to be process at all and be moved to the 'error' queue (by default `particular.servicecontrol.error` or `particular.servicecontrol.audit.error`
+NOTE: Messages that have corrupt (i.e. unreadable, not deserializable) header data will fail to be process at all and be moved to the 'error' queue (by default `particular.servicecontrol.error` or `particular.servicecontrol.audit.error`)
 
 Messages that fail to be imported are stored in the ServiceControl database in the `FailedAuditImports` and `FailedErrorImports` collections.
 
