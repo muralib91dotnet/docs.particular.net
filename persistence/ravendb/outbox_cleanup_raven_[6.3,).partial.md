@@ -3,7 +3,7 @@ It is recommended to disable the cleanup task and rely on the [document expirati
 - An endpoint is scaled out and instances are competing to run the cleanup task _or_
 - An endpoint is running in [multi-tenant mode](/persistence/ravendb/#multi-tenant-support)
 
-The cleanup task can be disabled by specifying a value of `Timeout.InfiniteTimeSpan` for `SetFrequencyToRunDeduplicationDataCleanup`. 
+The cleanup task can be disabled by specifying a value of `Timeout.InfiniteTimeSpan` for `SetFrequencyToRunDeduplicationDataCleanup`.
 
 snippet: OutboxRavendBFrequencyOfCleanup
 
