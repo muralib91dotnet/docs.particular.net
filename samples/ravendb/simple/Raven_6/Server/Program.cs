@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using NServiceBus;
 using Raven.Client.Documents;
+using Raven.Client.Documents.Operations.Expiration;
+using Raven.Client.ServerWide;
+using Raven.Client.ServerWide.Operations;
 
 class Program
 {
@@ -26,9 +30,19 @@ class Program
 
             #endregion
 
+            var outbox = endpointConfiguration.EnableOutbox();
+            outbox.SetTimeToKeepDeduplicationData(TimeSpan.FromMinutes(5));
+            // disable local cleanup task
+            outbox.SetFrequencyToRunDeduplicationDataCleanup(Timeout.InfiniteTimeSpan);
+
             var transport = endpointConfiguration.UseTransport<LearningTransport>();
             transport.Transactions(TransportTransactionMode.SendsAtomicWithReceive);
             endpointConfiguration.EnableInstallers();
+
+            // create the database
+            await documentStore.Maintenance.Server.SendAsync(new CreateDatabaseOperation(new DatabaseRecord(documentStore.Database)));
+            // enable the document expiration
+            await documentStore.Maintenance.SendAsync(new ConfigureExpirationOperation(new ExpirationConfiguration { Disabled = false, }));
 
             var endpointInstance = await Endpoint.Start(endpointConfiguration)
                 .ConfigureAwait(false);
