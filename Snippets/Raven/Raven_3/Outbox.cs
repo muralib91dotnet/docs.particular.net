@@ -11,6 +11,9 @@
         {
             #region OutboxRavendBTimeToKeep
             busConfiguration.SetTimeToKeepDeduplicationData(TimeSpan.FromDays(7));
+            #endregion
+
+            #region OutboxRavendBFrequencyOfCleanup
             busConfiguration.SetFrequencyToRunDeduplicationDataCleanup(TimeSpan.FromMinutes(1));
             #endregion
 
