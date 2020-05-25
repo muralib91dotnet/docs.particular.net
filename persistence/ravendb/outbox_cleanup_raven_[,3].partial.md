@@ -1,3 +1,5 @@
+The cleanup task frequency can be controlled with
+
 snippet: OutboxRavendBFrequencyOfCleanup
 
 The maximum value allowed for both properties is `int.MaxValue * 2` milliseconds, which is between 49 and 50 days.
