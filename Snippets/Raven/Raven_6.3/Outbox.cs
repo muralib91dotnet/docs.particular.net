@@ -11,10 +11,13 @@
             var outbox = endpointConfiguration.EnableOutbox();
             outbox.SetTimeToKeepDeduplicationData(TimeSpan.FromDays(7));
             #endregion
+        }
 
+        void OutboxCleanup(EndpointConfiguration endpointConfiguration)
+        {
             #region OutboxRavendBFrequencyOfCleanup
-            var outboxSettings = endpointConfiguration.EnableOutbox();
-            outboxSettings.SetFrequencyToRunDeduplicationDataCleanup(TimeSpan.FromMinutes(1));
+            var outbox = endpointConfiguration.EnableOutbox();
+            outbox.SetFrequencyToRunDeduplicationDataCleanup(TimeSpan.FromMinutes(1));
             #endregion
         }
     }
